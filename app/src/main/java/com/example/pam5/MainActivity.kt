@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,9 +36,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.DrawCacheModifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pam5.Data.DataForm
 import com.example.pam5.Data.DataSource.jenis
 import com.example.pam5.ui.theme.Pam5Theme
@@ -80,7 +83,7 @@ fun TampilLayout(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TampilForm(){
+fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     var textNama by remember { mutableStateOf("") }
     var textTlp by remember { mutableStateOf("") }
 
@@ -99,6 +102,18 @@ fun TampilForm(){
             textNama = it
         }
     )
+    OutlinedTextField(
+        value = textTlp,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Telepon")},
+        onValueChange = {
+            textTlp = it
+        }
+    )
+
     SelectJK(
         options = jenis.map { id -> context.resources.getString(id)},
         onSelectionChanged = { CobaViewModel().setJenisK(it)})
@@ -116,8 +131,6 @@ fun TampilForm(){
         namanya = CobaViewModel().namausr,
         telponnya = CobaViewModel().noTlp,
         jenisnya = CobaViewModel().jenisKl)
-
-
 }
 
 @Composable
@@ -182,7 +195,5 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview(){
-
         TampilLayout()
-
 }
