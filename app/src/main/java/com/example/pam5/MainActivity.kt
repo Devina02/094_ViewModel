@@ -130,6 +130,10 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         }
     )
 
+    SelectJK(
+        options = jenis.map { id -> context.resources.getString(id)},
+        onSelectionChanged = { CobaViewModel().setJenisK(it)})
+
     OutlinedTextField(
         value = textalamat,
         singleLine = true,
@@ -141,10 +145,6 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
             textalamat = it
         }
     )
-
-    SelectJK(
-        options = jenis.map { id -> context.resources.getString(id)},
-        onSelectionChanged = { CobaViewModel().setJenisK(it)})
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {CobaViewModel().InsertData(textNama, textTlp, dataForm.sex, dataForm.stats, textemail, textalamat )}
