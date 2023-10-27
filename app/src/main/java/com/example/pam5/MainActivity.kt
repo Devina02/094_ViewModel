@@ -86,6 +86,7 @@ fun TampilLayout(
 fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     var textNama by remember { mutableStateOf("") }
     var textTlp by remember { mutableStateOf("") }
+    var textEmail by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val dataForm: DataForm
@@ -109,6 +110,16 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
         label = { Text(text = "Telepon")},
+        onValueChange = {
+            textTlp = it
+        }
+    )
+    OutlinedTextField(
+        value = textTlp,
+        singleLine = true,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Email")},
         onValueChange = {
             textTlp = it
         }
