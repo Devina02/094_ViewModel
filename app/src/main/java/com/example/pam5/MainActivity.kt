@@ -131,7 +131,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         onSelectionChanged = { CobaViewModel().setJenisK(it)})
     Button(
         modifier = Modifier.fillMaxWidth(),
-        onClick = {CobaViewModel().InsertData(textNama, textTlp, dataForm.sex, dataForm.stats)}
+        onClick = {CobaViewModel().InsertData(textNama, textTlp, dataForm.sex, dataForm.stats, textemail)}
     ) {
         Text(
             text = stringResource(R.string.submit),
