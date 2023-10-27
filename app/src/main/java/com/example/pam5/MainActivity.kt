@@ -86,7 +86,7 @@ fun TampilLayout(
 fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     var textNama by remember { mutableStateOf("") }
     var textTlp by remember { mutableStateOf("") }
-    var textEmail by remember { mutableStateOf("") }
+    var textemail by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val dataForm: DataForm
@@ -115,13 +115,14 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         }
     )
     OutlinedTextField(
-        value = textTlp,
+        value = textemail,
         singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
         label = { Text(text = "Email")},
         onValueChange = {
-            textTlp = it
+            textemail = it
         }
     )
 
@@ -130,7 +131,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         onSelectionChanged = { CobaViewModel().setJenisK(it)})
     Button(
         modifier = Modifier.fillMaxWidth(),
-        onClick = {CobaViewModel().InsertData(textNama, textTlp, dataForm.sex)}
+        onClick = {CobaViewModel().InsertData(textNama, textTlp, dataForm.sex, dataForm.stats)}
     ) {
         Text(
             text = stringResource(R.string.submit),
@@ -141,7 +142,9 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     TextHasil(
         namanya = CobaViewModel().namausr,
         telponnya = CobaViewModel().noTlp,
-        jenisnya = CobaViewModel().jenisKl)
+        jenisnya = CobaViewModel().jenisKl,
+        statusnya = CobaViewModel().status
+        )
 }
 
 @Composable
@@ -177,7 +180,7 @@ fun SelectJK(
 }
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String) {
+fun TextHasil(namanya: String, telponnya: String, jenisnya: String, statusnya: String) {
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -196,6 +199,10 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String) {
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(text = "Jenis kelamin: " + jenisnya,
+            modifier = Modifier
+                .padding(horizontal = 10.dp, vertical = 5.dp)
+        )
+        Text(text = "Status: " + statusnya,
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
